@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-// const AutoIncrement = require('mongoose-sequence')(mongoose)
+const AutoIncrement = require('mongoose-sequence')(mongoose)
 
 const userSchema = new mongoose.Schema({
   firstName: { type: String, required: false },
@@ -9,10 +9,10 @@ const userSchema = new mongoose.Schema({
   mobile: { type: Number, required: false },
   status: { type: Boolean, default: false },
   password: { type: String, required: true },
-  accountType: { type: String, required: false, default: 'null' }
+  accountType: { type: String, required: false, default: 'worker' }
 })
 
-// userSchema.plugin(AutoIncrement, {inc_field: 'id'});
+userSchema.plugin(AutoIncrement, { inc_field: 'id' })
 
 const User = mongoose.model('user', userSchema)
 

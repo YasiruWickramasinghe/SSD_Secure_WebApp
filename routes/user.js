@@ -1,11 +1,12 @@
-const express = require('express')
-const { register, signin, getUsers } = require('../controllers/user')
-const protect = require('../middleware/authMiddleware')
-const accountTypeCheck = require('../middleware/roles')
+const express = require ('express');
+const { register, signin, getUsers } = require('../controllers/user');
+const protect = require('../middleware/authMiddleware');
+const accountTypeCheck = require('../middleware/roles');
 const router = express.Router()
 
-router.post('/register', register) // protect,
-router.post('/signin', signin) //accountTypeCheck('admin'),  protect
-router.get('/', protect, accountTypeCheck('admin'), getUsers)
+router.post('/register', protect, register );
+router.post('/signin', protect, accountTypeCheck('admin'), signin ); 
+router.get('/', protect, accountTypeCheck('admin'), getUsers ); 
 
-module.exports = router
+
+module.exports = router;

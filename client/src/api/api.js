@@ -27,13 +27,13 @@ export async function logout () {
 }
 
 export async function registerUser (body) {
-  // const token = getToken();
+  const token = getToken()
   return axios({
     url: BASE_URL + `/api/user/register`,
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
-      // Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
     },
     data: body
   })

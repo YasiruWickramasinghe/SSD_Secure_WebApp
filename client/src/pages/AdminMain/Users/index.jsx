@@ -14,19 +14,19 @@ const Users = () => {
   const [loading, setloading] = useState(false);
   const [search, setsearch] = useState({ name: "", email: "", id: "" });
 
-  const pages = new Array(numOfPages).fill(null).map((v, i) => i);
+  // const pages = new Array(numOfPages).fill(null).map((v, i) => i);
 
-  const handleChange = ({ currentTarget: input }) => {
-    setsearch({ ...search, [input.name]: input.value });
-  };
+  // const handleChange = ({ currentTarget: input }) => {
+  //   setsearch({ ...search, [input.name]: input.value });
+  // };
 
-  const goToPrevious = () => {
-    setPageNumber(Math.max(0, pageNumber - 1));
-  };
+  // const goToPrevious = () => {
+  //   setPageNumber(Math.max(0, pageNumber - 1));
+  // };
 
-  const goToNext = () => {
-    setPageNumber(Math.min(numOfPages - 1, pageNumber + 1));
-  };
+  // const goToNext = () => {
+  //   setPageNumber(Math.min(numOfPages - 1, pageNumber + 1));
+  // };
 
   useEffect(() => {
     const getData = async () => {
@@ -63,7 +63,7 @@ const Users = () => {
   return (
     <div>
       <div className="card-container">
-        <h3>Page of {pageNumber + 1}</h3>
+        {/* <h3>Page of {pageNumber + 1}</h3> */}
         <div className="row">
           {data &&
             data.map((item, index) => {
@@ -84,7 +84,7 @@ const Users = () => {
                           <strong>{item.id && item.id}</strong>
                         </h6>
                         <button
-                          className="btn btn-outline-dark"
+                          className="btn btn-outline-dark card-text"
                           onClick={() => togglePopup(item)}
                         >
                           View Profile
@@ -110,7 +110,7 @@ const Users = () => {
 
         {/* Pagination */}
 
-        <nav aria-label="...">
+        {/* <nav aria-label="...">
           <ul className="pagination">
             <li className="page-item">
               <Link
@@ -147,7 +147,7 @@ const Users = () => {
               </Link>
             </li>
           </ul>
-        </nav>
+        </nav> */}
       </div>
       {isOpen && <ProfileModal handleClose={togglePopup} item={item} />}
     </div>

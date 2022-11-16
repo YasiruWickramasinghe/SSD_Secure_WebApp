@@ -10,25 +10,24 @@ const Login = () => {
   const [loading, setloading] = useState(false);
 
   const handleChange = ({ currentTarget: input }) => {
-    setError('');
+    setError("");
     setData({ ...data, [input.name]: input.value });
   };
 
   const handleSubmit = async (e) => {
-    setError('')
-    setloading(true)
+    setError("");
+    setloading(true);
     e.preventDefault();
     try {
       const res = await login(data);
 
       localStorage.setItem("token", res.data.accessToken);
 
-      setloading(false)
+      setloading(false);
 
       window.location = "/";
-
     } catch (error) {
-         setloading(false)
+      setloading(false);
       if (
         error.response &&
         error.response.status >= 400 &&
@@ -70,11 +69,14 @@ const Login = () => {
               />
             </div>
             <div className="d-grid gap-2 mt-3">
-                {error && <FormAlert message={error}/>}
-              {!loading ?<button type="submit" className="btn btn-danger">
-                Login
-              </button>:
-              <LoadingButton/>}
+              {error && <FormAlert message={error} />}
+              {!loading ? (
+                <button type="submit" className="btn btn-secondary">
+                  login
+                </button>
+              ) : (
+                <LoadingButton />
+              )}
             </div>
           </div>
         </form>

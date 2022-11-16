@@ -7,24 +7,24 @@ import Worker from './pages/Worker/worker'
 import Manager from './pages/Manager/manager'
 
 function App () {
-  // const token = localStorage.getItem('token')
-  // let user = ''
-  // token ? (user = jwt_decode(token)) : (user = null)
+  const token = localStorage.getItem('token')
+  let user = ''
+  token ? (user = jwt_decode(token)) : (user = null)
 
-  // const userRole = () => {
-  //   let role = ''
-  //   if (user && user.accountType === 'admin') role = 'admin'
+  const userRole = () => {
+    let role = ''
+    if (user && user.accountType === 'admin') role = 'admin'
 
-  //   if (user && user.accountType === 'worker') role = 'worker'
+    if (user && user.accountType === 'worker') role = 'worker'
 
-  //   if (user && user.accountType === 'manager') role = 'manager'
+    if (user && user.accountType === 'manager') role = 'manager'
 
-  //   return role
-  // }
+    return role
+  }
 
   return (
     <Routes>
-      {/* {userRole() === 'admin' && (
+      {userRole() === 'admin' && (
         <Route path='/' exact element={<AdminMain />} />
       )}
 
@@ -35,6 +35,7 @@ function App () {
           element={user.status ? <Worker /> : <Register />}
         />
       )}
+
       {userRole() === 'manager' && (
         <Route
           path='/'
@@ -42,19 +43,13 @@ function App () {
           element={user.status ? <Manager /> : <Register />}
         />
       )}
+
       <Route
         path='/login'
         exact
         element={user ? <Navigate replace to='/' /> : <Login />}
       />
-      <Route path='/' element={<Navigate replace to='/login' />} /> */}
-
-      {/* <Route path='/login' exact element={<Login />} />
-      <Route path='/register' exact element={<Register />} />
-      <Route path='/admin' exact element={<AdminMain />} /> */}
-
-      <Route path='/' exact element={<Worker />} />
-      <Route path='/manager' exact element={<Manager />} />
+      <Route path='/' element={<Navigate replace to='/login' />} />
     </Routes>
   )
 }
