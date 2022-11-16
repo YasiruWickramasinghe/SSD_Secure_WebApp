@@ -1,6 +1,15 @@
-# Getting Started with Server
+# How to Run
 
-.env file is not included here.
+##open new Terminal
+
+npm i
+npm run start
+
+##open new Terminal
+
+cd client
+npm i
+npm start
 
 
 ## Available Scripts
