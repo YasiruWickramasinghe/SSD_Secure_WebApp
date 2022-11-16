@@ -1,14 +1,14 @@
 # How to Run
 
-##open new Terminal
+## open new Terminal
 
-npm i
+npm i/
 npm run start
 
-##open new Terminal
+## open new Terminal
 
-cd client
-npm i
+cd client/
+npm i/
 npm start
 
 
