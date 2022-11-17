@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { addFile, updateFile } from "../../api/api";
+import { addFile } from "../../api/api";
 import { success } from "../AlerBox";
 import FormAlert from "../Alert/FormAlert";
 import LoadingButton from "../Button/LoadingButton";
+import jwt_decode from "jwt-decode";
 
 import "./styles.css";
 
 const FileFormModal = (props) => {
-  const [data, setData] = useState({ message: "", file: "" });
+  const [data, setData] = useState({ message: "", file: "", userid: "" });
   const [error, setError] = useState("");
   const [loading, setloading] = useState(false);
+
+  const token = localStorage.getItem("token");
+  let user = "";
+  token ? (user = jwt_decode(token)) : (user = null);
 
   useEffect(() => {
     props.items && setData(props.items);
@@ -18,19 +23,26 @@ const FileFormModal = (props) => {
 
   const handleChange = ({ currentTarget: input }) => {
     setError("");
-    setData({ ...data, [input.name]: input.value });
+    setData({ ...data, [input.name]: input.value, userid: user.id });
+  };
+
+  const handleFile = (e) => {
+    setData({ ...data, file: e.target.files[0] });
   };
 
   const handleSubmit = async (e) => {
     setError("");
     setloading(true);
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("file", data.file);
+    formData.append("message", data.message);
+    formData.append("userid", data.userid);
+
     try {
       let res;
-      props.status
-        ? (res = await addFile(data))
-        : (res = await updateFile(props.items._id, data));
-      success(res.data.message);
+      res = await addFile(formData);
+      await success(res.data.message);
       setloading(false);
 
       window.location = "/";
@@ -54,9 +66,7 @@ const FileFormModal = (props) => {
         </span>
         <form className="Auth-form" onSubmit={handleSubmit}>
           <div className="Auth-form-content form-group">
-            <h3 className="Auth-form-title">
-              {props.status ? "Insert Message" : "Update Message"}
-            </h3>
+            <h3 className="Auth-form-title">Upload File</h3>
             <div className="form-group mt-3">
               <label>Message</label>
               <textarea
@@ -72,10 +82,9 @@ const FileFormModal = (props) => {
               <label>File Upload</label>
               <input
                 type="file"
+                name="file"
                 accept=".png, .jpg, .jpeg"
-                name="title"
-                value={data.file}
-                // onChange={handlePhoto}
+                onChange={handleFile}
                 className="form-control mt-1"
                 required
               />
@@ -84,7 +93,7 @@ const FileFormModal = (props) => {
               {error && <FormAlert message={error} />}
               {!loading ? (
                 <button type="submit" className="btn btn-secondary">
-                  {props.status ? "Upload" : "Update"}
+                  Upload
                 </button>
               ) : (
                 <LoadingButton />

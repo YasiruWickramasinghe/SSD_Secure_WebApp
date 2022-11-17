@@ -3,9 +3,9 @@ const mongoose = require('mongoose')
 const fileSchema = new mongoose.Schema({
   userId: { type: String, required: true },
   message: { type: String, required: true },
-  file: { type: String, required: false }
+  file: { type: String, required: true }
 })
 
-const File = mongoose.model('filess', fileSchema)
+const File = mongoose.model('files', fileSchema)
 
 module.exports = { File }
