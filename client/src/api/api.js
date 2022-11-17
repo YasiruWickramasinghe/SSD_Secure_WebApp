@@ -63,3 +63,55 @@ export async function getUser (query) {
     }
   })
 }
+
+export async function addMessage (body) {
+  const token = getToken()
+  return axios({
+    url: BASE_URL + `/api/message`,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    data: body
+  })
+}
+
+export async function updateMessage (id, body) {
+  const token = getToken()
+  return axios({
+    url: BASE_URL + `/api/message/${id}`,
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    data: body
+  })
+}
+
+export async function addFile (body) {
+  const token = getToken()
+  return axios({
+    url: BASE_URL + `/api/file`,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    data: body
+  })
+}
+
+export async function updateFile (id, body) {
+  const token = getToken()
+  return axios({
+    url: BASE_URL + `/api/file/${id}`,
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    data: body
+  })
+}
